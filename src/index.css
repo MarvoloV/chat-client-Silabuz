@@ -1,6 +1,10 @@
-body {
+body,
+html,
+.root {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -8,7 +12,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.formLogin {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  /* align-items: center; */
+  margin: auto;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -43,9 +54,15 @@ code {
 .chat {
   background-color: #e5ddd5;
   width: 100%;
-  padding: 0px 10%;
+  padding: 0px 2%;
   padding-top: 7px;
   overflow-y: auto;
+}
+.wrap {
+  display: flex;
+  height: 100vh;
+  min-width: 600px;
+  box-shadow: 0 2px 2px #aaaaaa;
 }
 .wrap-chat {
   height: calc(100% - 120px);
@@ -56,6 +73,10 @@ code {
   height: 60px;
   background: #f1f1f1;
   display: flex;
+}
+.right {
+  /* min-width: calc(100% - 400px); */
+  width: 100%;
 }
 .message {
   width: 100%;
@@ -77,3 +98,70 @@ h1 {
 p {
   margin: 0px;
 }
+/* PARTE IZQUIERDA */
+.left {
+  width: 400px;
+}
+.profile {
+  width: 100%;
+  height: 60px;
+  background: #eeeeee;
+  border-right: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: space-between;
+}
+.contact-list {
+  background-color: #ffffff;
+  width: 100%;
+  height: calc(100% - 105px);
+  overflow-y: auto;
+}
+.contact img,
+.active-contact img,
+.new-message-contact img {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  border-radius: 50%;
+}
+.contact,
+.active-contact,
+.new-message-contact {
+  height: 70px;
+  background-color: #ffffff;
+  display: flex;
+}
+.contact-preview {
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  overflow: hidden;
+}
+.contact-text {
+  height: 40px;
+  margin: auto 0;
+  overflow: hidden;
+}
+.font-name {
+  color: #000000;
+  font-size: 1em;
+  font-weight: inherit;
+  padding-bottom: 3px;
+}
+.font-preview {
+  color: #444444;
+  font-size: 0.9em;
+  font-weight: inherit;
+}
+.contact-time {
+  width: 55px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eeeeee;
+}
+/* PARTE IZQUIERDA */
