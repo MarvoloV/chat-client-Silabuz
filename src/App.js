@@ -3,16 +3,14 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
-const conectSocketServer = () => {
-  const socket = io('https://chat-for-jorge.herokuapp.com/', { transports: ['websocket'] });
-  return socket;
-};
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import socket from './socket';
 function App() {
   const createdRoom = uuidv4();
-  const [socket] = useState(conectSocketServer());
   // const [online, setOnline] = useState(false);
   const [name, setname] = useState('');
+  console.log('🚀 ~ file: App.js ~ line 23 ~ App ~ name', name);
   const [message, setMessage] = useState('');
   const [messageData, setMessageData] = useState([]);
   const [users, setUsers] = useState([]);
@@ -50,11 +48,27 @@ function App() {
   const handlerLogin = (event) => {
     event.preventDefault();
     socket.emit('add-user-to-server', { userName: name, room: createdRoom });
+    socket.emit('connect-user', name);
     setlogin(true);
   };
+  useEffect(() => {
+    socket.on('message-connect', ({ message }) => {
+      notify(message);
+    });
+    return () => {
+      socket.off();
+    };
+  }, [socket]);
+  useEffect(() => {
+    socket.on('message-disconnect', ({ message }) => {
+      notify(message);
+    });
+  }, [socket]);
+  const notify = (message) => toast(`${message}`);
+
   return (
     <div className='App'>
-      <h1 style={{ textAlign: 'center', marginTop: '20px'}}>Chat Grupal</h1>
+      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Chat Grupal</h1>
       {!login && (
         <form onSubmit={handlerLogin} className='formLogin'>
           <div className='row'>
@@ -169,13 +183,9 @@ function App() {
                     onChange={(e) => setMessage(e.target.value)}
                   />
                 </div>
-                {/*  <div className='col-4'>
-                <button className='btn btn-primary' type='submit'>
-                  Enviar
-                </button>
-              </div> */}
               </div>
             </form>
+            <ToastContainer />
           </section>
         </div>
       )}
